@@ -54,7 +54,8 @@ extension Legacy<T> on RootProvider<Object, T> {
   ) {
     final sub = container.listen<T>(
       this,
-      mayHaveChanged: (sub) => listener(sub.read()),
+      mayHaveChanged: (sub) => sub.flush(),
+      didChange: (sub) => listener(sub.read()),
     );
     listener(sub.read());
     return sub.close;

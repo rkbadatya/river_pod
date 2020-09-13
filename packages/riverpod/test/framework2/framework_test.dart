@@ -229,14 +229,14 @@ void main() {
   });
 
   test('re-evaluating a provider can stop listening to a dependency', () {
-    final first = StateProvider((ref) => 0);
-    final second = StateProvider((ref) => 0);
+    final first = StateProvider((ref) => 0, name: 'first');
+    final second = StateProvider((ref) => 0, name: 'second');
     final computed = Provider<String>((ref) {
       if (ref.watch(first).state == 0) {
         return ref.watch(second).state.toString();
       }
       return 'fallback';
-    });
+    }, name: 'computed');
     final firstElement = container.readProviderElement(first);
     final secondElement = container.readProviderElement(second);
     final computedElement = container.readProviderElement(computed);
