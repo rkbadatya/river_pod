@@ -527,7 +527,6 @@ class ProviderElement<Created, Listened> implements ProviderReference {
   DoubleLinkedQueue<void Function()> _onDisposeListeners;
 
   int _notificationCount = 0;
-  int _notifyDidChangeLastNotificationCount = 0;
   bool _debugIsFlushing = false;
   bool _dirty = true;
   // initialized to true so that the initial state creation don't notify listeners
@@ -655,10 +654,6 @@ class ProviderElement<Created, Listened> implements ProviderReference {
         _mustRecomputeState = false;
       }
       _dirty = false;
-      // if (_notifyDidChangeLastNotificationCount != _notificationCount) {
-      //   _notifyDidChangeLastNotificationCount = _notificationCount;
-      //   _notifyDidChange();
-      // }
       assert(!_dirty, 'flush did not reset the dirty flag for $provider');
       assert(
         !_dependencyMayHaveChanged,
